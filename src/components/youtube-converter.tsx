@@ -1,17 +1,11 @@
+"use client";
+
 import { useState } from "react";
-import {
-  Box,
-  Input,
-  Button,
-  Select,
-  Text,
-  VStack,
-  Spinner,
-} from "@chakra-ui/react";
+import { Box, Input, Button, Text, VStack, Spinner } from "@chakra-ui/react";
+import SelectQuality from "./select-quality";
 
 export default function YouTubeConverter() {
   const [url, setUrl] = useState("");
-  const [quality, setQuality] = useState("balanced");
   const [loading, setLoading] = useState(false);
   const [downloadReady, setDownloadReady] = useState(false);
 
@@ -26,7 +20,7 @@ export default function YouTubeConverter() {
 
   return (
     <Box p={5} maxW="500px" mx="auto" textAlign="center">
-      <VStack spacing={4}>
+      <VStack spaceY={4}>
         <Text fontSize="xl" fontWeight="bold">
           YouTube para MP3
         </Text>
@@ -35,12 +29,8 @@ export default function YouTubeConverter() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
-        <Select value={quality} onChange={(e) => setQuality(e.target.value)}>
-          <option value="high">Alta Qualidade</option>
-          <option value="balanced">Equilibrado</option>
-          <option value="low">Menor Tamanho</option>
-        </Select>
-        <Button colorScheme="blue" onClick={handleConvert} isDisabled={loading}>
+        <SelectQuality />
+        <Button colorScheme="blue" onClick={handleConvert} disabled={loading}>
           {loading ? <Spinner size="sm" /> : "Converter"}
         </Button>
         {downloadReady && <Text color="green.500">Download pronto!</Text>}
