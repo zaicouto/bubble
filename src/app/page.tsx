@@ -1,4 +1,3 @@
-import "./page.css";
 import Layout from "./layout";
 import YouTubeConverter from "@/components/youtube-converter";
 
