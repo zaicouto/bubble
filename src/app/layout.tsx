@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bubble | Baixe músicas do YouTube",
+  title: "Bubble | Baixe músicas do YT",
   description: "Baixe músicas do YouTube, sem complicações.",
 };
 
