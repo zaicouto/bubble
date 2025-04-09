@@ -20,13 +20,14 @@ export default function YouTubeConverter() {
 
   const handleConvert = () => {
     if (!url) return;
+    console.log("url :>> ", url);
 
     setLoading(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setLoading(false);
       setDownloadReady(true);
-    }, 3000); // Simula o processo
+    }, 1000); // Simula o processo
   };
 
   return (
@@ -35,6 +36,7 @@ export default function YouTubeConverter() {
         <Text fontSize="xl" fontWeight="bold">
           YouTube para MP3
         </Text>
+
         <Input
           placeholder="Insira o link do vídeo ou playlist"
           value={url}
