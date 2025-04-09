@@ -1,8 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Box, Input, Button, Text, VStack, Spinner } from "@chakra-ui/react";
-import SelectQuality from "./select-quality";
+import {
+  Box,
+  Input,
+  Button,
+  Text,
+  VStack,
+  Spinner,
+  createListCollection,
+  Portal,
+  Select,
+} from "@chakra-ui/react";
 
 export default function YouTubeConverter() {
   const [url, setUrl] = useState("");
@@ -11,7 +20,9 @@ export default function YouTubeConverter() {
 
   const handleConvert = () => {
     if (!url) return;
+
     setLoading(true);
+
     setTimeout(() => {
       setLoading(false);
       setDownloadReady(true);
@@ -29,7 +40,34 @@ export default function YouTubeConverter() {
           value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
-        <SelectQuality />
+
+        <Select.Root collection={qualities}>
+          <Select.HiddenSelect />
+          <Select.Label>Selecione qualidade</Select.Label>
+
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText placeholder="Selecione qualidade" />
+            </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+            </Select.IndicatorGroup>
+          </Select.Control>
+
+          <Portal>
+            <Select.Positioner>
+              <Select.Content>
+                {qualities.items.map((quality) => (
+                  <Select.Item key={quality.value} item={quality}>
+                    {quality.label}
+                    <Select.ItemIndicator />
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Positioner>
+          </Portal>
+        </Select.Root>
+
         <Button colorScheme="blue" onClick={handleConvert} disabled={loading}>
           {loading ? <Spinner size="sm" /> : "Converter"}
         </Button>
@@ -38,3 +76,11 @@ export default function YouTubeConverter() {
     </Box>
   );
 }
+
+const qualities = createListCollection({
+  items: [
+    { value: "high", label: "Alta Qualidade" },
+    { value: "balanced", label: "Equilibrado" },
+    { value: "low", label: "Menor Tamanho" },
+  ],
+});
