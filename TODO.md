@@ -1,0 +1,2 @@
+- Baixar e converter o vídeo no backend do app
+- Tornar o app um PWA
